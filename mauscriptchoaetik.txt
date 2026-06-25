@@ -1,22 +1,97 @@
+local Player = game.Players.LocalPlayer
+local PlayerGui = Player:WaitForChild("PlayerGui")
+
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.Parent = PlayerGui
 
 local Frame = Instance.new("Frame")
-Frame.Size = UDim2.new(0, 250, 0, 150)
-Frame.Position = UDim2.new(0.5, -125, 0.5, -75)
+Frame.Size = UDim2.new(0,300,0,180)
+Frame.Position = UDim2.new(0.5,-150,0.5,-90)
 Frame.Parent = ScreenGui
 
 local Title = Instance.new("TextLabel")
-Title.Size = UDim2.new(1, 0, 0, 40)
+Title.Size = UDim2.new(1,0,0,35)
 Title.Text = "nguyên v2 | vip pro"
 Title.Parent = Frame
 
-local Button = Instance.new("TextButton")
-Button.Size = UDim2.new(0.8, 0, 0, 40)
-Button.Position = UDim2.new(0.1, 0, 0.5, 0)
-Button.Text = "Bật Hitbox 50"
-Button.Parent = Frame
+local Close = Instance.new("TextButton")
+Close.Size = UDim2.new(0,30,0,30)
+Close.Position = UDim2.new(1,-35,0,2)
+Close.Text = "X"
+Close.Parent = Frame
 
-Button.MouseButton1Click:Connect(function()
-	print("Hitbox đã bật!")
+local Info = Instance.new("TextLabel")
+Info.Size = UDim2.new(1,-20,0,25)
+Info.Position = UDim2.new(0,10,0,45)
+Info.Text = "Get Key: TikTok nguyennek_yeah"
+Info.Parent = Frame
+
+local KeyBox = Instance.new("TextBox")
+KeyBox.Size = UDim2.new(0.8,0,0,30)
+KeyBox.Position = UDim2.new(0.1,0,0,80)
+KeyBox.PlaceholderText = "Nhập key..."
+KeyBox.Parent = Frame
+
+local Check = Instance.new("TextButton")
+Check.Size = UDim2.new(0.8,0,0,30)
+Check.Position = UDim2.new(0.1,0,0,120)
+Check.Text = "Check Key"
+Check.Parent = Frame
+
+local Status = Instance.new("TextLabel")
+Status.Size = UDim2.new(1,0,0,20)
+Status.Position = UDim2.new(0,0,1,-20)
+Status.Text = ""
+Status.Parent = Frame
+
+Close.MouseButton1Click:Connect(function()
+	ScreenGui:Destroy()
+end)
+
+Check.MouseButton1Click:Connect(function()
+	if KeyBox.Text == "nguyendz" then
+		Status.Text = "Đúng key!"
+	else
+		Status.Text = "Sai key!"
+	end
+end)
+
+local UIS = game:GetService("UserInputService")
+local dragging = false
+local dragStart
+local startPos
+
+Frame.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		dragging = true
+		dragStart = input.Position
+		startPos = Frame.Position
+	end
+end)
+
+UIS.InputEnded:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		dragging = false
+	end
+end)
+
+UIS.InputChanged:Connect(function(input)
+	if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+		local delta = input.Position - dragStart
+		Frame.Position = UDim2.new(
+			startPos.X.Scale,
+			startPos.X.Offset + delta.X,
+			startPos.Y.Scale,
+			startPos.Y.Offset + delta.Y
+		)
+	end
+end)
+
+task.spawn(function()
+	while true do
+		for h = 0,1,0.01 do
+			Frame.BackgroundColor3 = Color3.fromHSV(h,1,1)
+			task.wait(0.03)
+		end
+	end
 end)
