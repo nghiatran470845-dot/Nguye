@@ -1,50 +1,36 @@
 local Players = game:GetService("Players")
-local Animals = workspace:WaitForChild("Animals")
+local player = Players.LocalPlayer
 
--- 💰 Leaderstats
-Players.PlayerAdded:Connect(function(player)
-	local stats = Instance.new("Folder")
-	stats.Name = "leaderstats"
-	stats.Parent = player
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "NguyenMenu"
+ScreenGui.Parent = player:WaitForChild("PlayerGui")
 
-	local Money = Instance.new("IntValue")
-	Money.Name = "Money"
-	Money.Value = 0
-	Money.Parent = stats
-end)
+local Frame = Instance.new("Frame")
+Frame.Size = UDim2.new(0, 300, 0, 160)
+Frame.Position = UDim2.new(0.5, -150, 0.5, -80)
+Frame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+Frame.Parent = ScreenGui
 
--- 🐶 Làm động vật bị bệnh
-local function MakeSick(animal)
-	local humanoid = animal:FindFirstChild("Humanoid")
-	if humanoid then
-		humanoid.Health = humanoid.MaxHealth * 0.5
-	end
-end
+local UICorner = Instance.new("UICorner")
+UICorner.Parent = Frame
 
-for _, animal in pairs(Animals:GetChildren()) do
-	MakeSick(animal)
-end
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.BackgroundTransparency = 1
+Title.Text = "Nguyên Nek"
+Title.TextColor3 = Color3.new(1, 1, 1)
+Title.TextScaled = true
+Title.Font = Enum.Font.GothamBold
+Title.Parent = Frame
 
-Animals.ChildAdded:Connect(function(animal)
-	task.wait(1)
-	MakeSick(animal)
-end)
+local Button = Instance.new("TextButton")
+Button.Size = UDim2.new(0.8, 0, 0, 40)
+Button.Position = UDim2.new(0.1, 0, 0.5, 0)
+Button.Text = "💪 Tăng Sức Mạnh"
+Button.TextScaled = true
+Button.Font = Enum.Font.Gotham
+Button.Parent = Frame
 
--- 💊 HealPad hệ thống (tự tìm HealPad trong Workspace)
-local HealPad = workspace:WaitForChild("HealPad")
-
-HealPad.Touched:Connect(function(hit)
-	local model = hit.Parent
-	local humanoid = model:FindFirstChild("Humanoid")
-
-	if humanoid then
-		-- hồi máu
-		humanoid.Health = math.min(humanoid.Health + 30, humanoid.MaxHealth)
-
-		-- thưởng tiền nếu là người chơi
-		local player = Players:GetPlayerFromCharacter(model)
-		if player and player:FindFirstChild("leaderstats") then
-			player.leaderstats.Money.Value += 10
-		end
-	end
+Button.MouseButton1Click:Connect(function()
+	print("Đã nhấn nút Tăng Sức Mạnh")
 end)
