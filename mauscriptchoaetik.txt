@@ -1,4 +1,8 @@
-game.Players.PlayerAdded:Connect(function(player)
+local Players = game:GetService("Players")
+local Animals = workspace:WaitForChild("Animals")
+
+-- 💰 Leaderstats
+Players.PlayerAdded:Connect(function(player)
 	local stats = Instance.new("Folder")
 	stats.Name = "leaderstats"
 	stats.Parent = player
@@ -7,8 +11,9 @@ game.Players.PlayerAdded:Connect(function(player)
 	Money.Name = "Money"
 	Money.Value = 0
 	Money.Parent = stats
-end)local Animals = workspace:WaitForChild("Animals")
+end)
 
+-- 🐶 Làm động vật bị bệnh
 local function MakeSick(animal)
 	local humanoid = animal:FindFirstChild("Humanoid")
 	if humanoid then
@@ -16,26 +21,30 @@ local function MakeSick(animal)
 	end
 end
 
-for _, a in pairs(Animals:GetChildren()) do
-	MakeSick(a)
+for _, animal in pairs(Animals:GetChildren()) do
+	MakeSick(animal)
 end
 
-Animals.ChildAdded:Connect(function(a)
+Animals.ChildAdded:Connect(function(animal)
 	task.wait(1)
-	MakeSick(a)
-end)local healAmount = 30
-local reward = 10
+	MakeSick(animal)
+end)
 
-script.Parent.Touched:Connect(function(hit)
+-- 💊 HealPad hệ thống (tự tìm HealPad trong Workspace)
+local HealPad = workspace:WaitForChild("HealPad")
+
+HealPad.Touched:Connect(function(hit)
 	local model = hit.Parent
 	local humanoid = model:FindFirstChild("Humanoid")
 
 	if humanoid then
-		humanoid.Health = math.min(humanoid.Health + healAmount, humanoid.MaxHealth)
+		-- hồi máu
+		humanoid.Health = math.min(humanoid.Health + 30, humanoid.MaxHealth)
 
-		local player = game.Players:GetPlayerFromCharacter(hit.Parent)
-		if player then
-			player.leaderstats.Money.Value += reward
+		-- thưởng tiền nếu là người chơi
+		local player = Players:GetPlayerFromCharacter(model)
+		if player and player:FindFirstChild("leaderstats") then
+			player.leaderstats.Money.Value += 10
 		end
 	end
 end)
