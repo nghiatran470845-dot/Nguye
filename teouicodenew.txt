@@ -1,5 +1,5 @@
 -- 1️⃣ KHAI BÁO KEY & LINK GET KEY
-local key = "in" -- Key bạn đặt
+local key = "thik" -- Key bạn đặt
 local keyLink = "https://www.tiktok.com/@nguyennek_yeah" -- Link khi ấn "Get Key"
 
 -- 2️⃣ GIAO DIỆN NHẬP KEY
@@ -39,7 +39,7 @@ CloseButton.MouseButton1Click:Connect(function()
 	ScreenGui:Destroy() -- ấn X sẽ tắt giao diện
 end)
 TextBox.Parent = Frame
-TextBox.PlaceholderText = "Nhập key tại đây 🍎"
+TextBox.PlaceholderText = "thik tường nhập key vô❤️"
 TextBox.Text = ""
 TextBox.Size = UDim2.new(0.9, 0, 0, 35)
 TextBox.Position = UDim2.new(0.05, 0, 0.25, 0)
@@ -48,14 +48,14 @@ TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 UICorner:Clone().Parent = TextBox
 
 CheckButton.Parent = Frame
-CheckButton.Text = "Kiểm tra key ✅"
+CheckButton.Text = "ng yêu tường ✅"
 CheckButton.Size = UDim2.new(0.4, 0, 0, 30)
 CheckButton.Position = UDim2.new(0.05, 0, 0.65, 0)
 CheckButton.BackgroundColor3 = Color3.fromRGB(80, 170, 80)
 UICorner:Clone().Parent = CheckButton
 
 GetKeyButton.Parent = Frame
-GetKeyButton.Text = "Lấy key 🔑"
+GetKeyButton.Text = "tường 🔑"
 GetKeyButton.Size = UDim2.new(0.4, 0, 0, 30)
 GetKeyButton.Position = UDim2.new(0.55, 0, 0.65, 0)
 GetKeyButton.BackgroundColor3 = Color3.fromRGB(100, 100, 255)
@@ -64,7 +64,7 @@ UICorner:Clone().Parent = GetKeyButton
 GetKeyButton.MouseButton1Click:Connect(function()
 	setclipboard(keyLink)
 	game.StarterGui:SetCore("SendNotification", {
-		Title = "Đã copy link 🔗";
+		Title = "Đã copy link rồi🔗";
 		Text = "Dán lên trình duyệt để lấy key nhé!";
 		Duration = 4;
 	})
@@ -114,7 +114,7 @@ print("🍎 WindUI loaded OK")
 
 -- 🔹 Tạo Window
 local Window = WindUI:CreateWindow({
-    Title = "nguyên v2",
+    Title = "nguyên v2❤️",
     Size = UDim2.fromOffset(580, 340),
     Theme = "Dark",
     Transparent = true
@@ -178,7 +178,7 @@ Tabs.Home2:Toggle({
     end
 })
 Tabs.Home1:Button({
-    Title = "định vị tôi",
+    Title = "định vị mik",
     Callback = function()
         loadstring(game:HttpGet(
             "https://raw.githubusercontent.com/teoscrvn/Script-t-o-v2/main/dinhvi2.txt"
@@ -191,13 +191,13 @@ Tabs.Home3:Button({
     Callback = function()
       loadstring(game:HttpGet("https://pastebin.com/raw/DH4b3T5S"))();
 v2
-        print("🍎 Đã chạy định vị")
+        print("🍎 Đã chạy tốc độ")
     end
 })
 Tabs.Home3:Button({
     Title = "bất tử",
     Callback = function()
       loadstring(game:HttpGet("https://raw.githubusercontent.com/Rawbr10/Roblox-Scripts/refs/heads/main/God%20Mode%20Script%20Universal"))()
-        print("🍎 Đã chạy định vị")
+        print("🍎 Đã chạy bất tử")
     end
 })
