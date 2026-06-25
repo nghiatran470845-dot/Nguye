@@ -1,39 +1,41 @@
-local Title = Instance.new("TextLabel")
-Title.Size = UDim2.new(1, 0, 0, 40)
-Title.Text = "nguyen me hack"
-Title.TextScaled = true
-Title.Parent = Framelocal Players = game:GetService("Players")
+game.Players.PlayerAdded:Connect(function(player)
+	local stats = Instance.new("Folder")
+	stats.Name = "leaderstats"
+	stats.Parent = player
 
-Players.PlayerAdded:Connect(function(player)
-	player.CharacterAdded:Connect(function(character)
-		local humanoid = character:WaitForChild("Humanoid")
+	local Money = Instance.new("IntValue")
+	Money.Name = "Money"
+	Money.Value = 0
+	Money.Parent = stats
+end)local Animals = workspace:WaitForChild("Animals")
 
-		while humanoid.Parent do
-			humanoid.Health = humanoid.MaxHealth
-			task.wait(0.1)
-		end
-	end)
-end)local Frame = script.Parent -- Cửa sổ thông báo
-
-local function ShowAlert()
-	Frame.Visible = true
-	task.wait(5) -- Hiển thị 5 giây
-	Frame.Visible = false
-end
-
-game.ReplicatedStorage.AnimalNeedsHelp.OnClientEvent:Connect(function()
-	ShowAlert()
-end)local function AcceptAnimal(animal)
-	if animal:GetAttribute("Condition") == "Normal" then
-		animal:SetAttribute("Accepted", true)
-		print("Đã tự động nhận:", animal.Name)
+local function MakeSick(animal)
+	local humanoid = animal:FindFirstChild("Humanoid")
+	if humanoid then
+		humanoid.Health = humanoid.MaxHealth * 0.5
 	end
 end
 
-workspace.Animals.ChildAdded:Connect(function(animal)
-	AcceptAnimal(animal)
-end)
-
-for _, animal in ipairs(workspace.Animals:GetChildren()) do
-	AcceptAnimal(animal)
+for _, a in pairs(Animals:GetChildren()) do
+	MakeSick(a)
 end
+
+Animals.ChildAdded:Connect(function(a)
+	task.wait(1)
+	MakeSick(a)
+end)local healAmount = 30
+local reward = 10
+
+script.Parent.Touched:Connect(function(hit)
+	local model = hit.Parent
+	local humanoid = model:FindFirstChild("Humanoid")
+
+	if humanoid then
+		humanoid.Health = math.min(humanoid.Health + healAmount, humanoid.MaxHealth)
+
+		local player = game.Players:GetPlayerFromCharacter(hit.Parent)
+		if player then
+			player.leaderstats.Money.Value += reward
+		end
+	end
+end)
